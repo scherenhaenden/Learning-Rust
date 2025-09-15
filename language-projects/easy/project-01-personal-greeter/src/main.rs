@@ -4,7 +4,7 @@ fn main() {
 
     let mut name = String::new();
 
-    println!("Hi! whats your name?");
+    println!("Hi! what's your name?");
 
     io::stdin().read_line(&mut name).expect("Failed to read line");
 
