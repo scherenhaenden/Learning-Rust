@@ -27,7 +27,13 @@ fn main() {
         "+" => first_number + second_number,
         "-" => first_number - second_number,
         "*" => first_number * second_number,
-        "/" => first_number / second_number,
+        "/" => {
+            if second_number == 0 {
+                println!("Error: Division by zero is not allowed.");
+                return;
+            }
+            first_number / second_number
+        },
         _ => {
             println!("Invalid operation");
             return;
