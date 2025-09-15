@@ -10,12 +10,12 @@
 ## 🎯 Overall Project Structure
 
 ### **Repository Setup Status**
-- [ ] **Repository created** on GitHub: `https://github.com/yourusername/rust-100-projects`
-- [ ] **Local clone** completed
-- [ ] **Git configured** with proper `.gitignore`
-- [ ] **LICENSE file** added (MIT)
-- [ ] **Root README.md** updated (this file)
-- [ ] **Initial commit** pushed to GitHub
+- [x] **Repository created** on GitHub: `https://github.com/scherenhaenden/Learning-Rust`
+- [x] **Local clone** completed
+- [x] **Git configured** with proper `.gitignore`
+- [x] **LICENSE file** added (MIT)
+- [x] **Root README.md** updated (this file)
+- [x] **Initial commit** pushed to GitHub
 
 ### **Workspace Structure**
 ```
@@ -61,7 +61,7 @@ rust-100-projects/                    # ✅ Planned
 ### **Repository Initialization** (1-2 hours)
 ```bash
 # Clone and setup
-git clone https://github.com/yourusername/rust-100-projects.git
+git clone https://github.com/scherenhaenden/Learning-Rust.git
 cd rust-100-projects
 
 # Create basic structure
@@ -421,7 +421,7 @@ For each project directory, create `STATUS.md`:
 - Related projects/connections:
 
 ## 🔗 Links
-- [GitHub Directory](https://github.com/yourusername/rust-100-projects/tree/main/application-projects/easy/project-XX-[name])
+- [GitHub Directory](https://github.com/scherenhaenden/Learning-Rust/tree/main/application-projects/easy/project-XX-[name])
 - [Run Instructions](README.md#running-the-application)
 - [Test Coverage Report](coverage/index.html)
 ```
@@ -553,7 +553,7 @@ If you fall 1-2 weeks behind:
 ### **Day 1: Environment Setup (2-3 hours)**
 ```bash
 # Complete initial setup tasks
-git clone https://github.com/yourusername/rust-100-projects.git
+git clone https://github.com/scherenhaenden/Learning-Rust.git
 cd rust-100-projects
 
 # Create basic structure (see setup commands above)
