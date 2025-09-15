@@ -1,3 +1,6 @@
 **/.idea/encodings.xml
 */.idea/encodings.xml
 .idea/encodings.xml
+language-projects/easy/project-01-personal-greeter/.idea/
+/**/.idea/
+/**/target/

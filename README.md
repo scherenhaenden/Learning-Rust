@@ -2,7 +2,7 @@
 
 [![Rust](https://img.shields.io/badge/rust-1.75-blue?logo=rust)](https://www.rust-lang.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Workspace](https://img.shields.io/badge/workspace-cargo-orange)](https://doc.rust-lang.org/cargo/reference/workspaces.html)
+[![Two Workspaces](https://img.shields.io/badge/workspaces-two%20independent-orange)](https://doc.rust-lang.org/cargo/reference/workspaces.html)
 
 A comprehensive collection of **100 Rust projects** divided into two parallel learning tracks: **Application Projects** (50 projects) and **Language Mastery Projects** (50 projects). Designed for progressive learning from beginner to expert, covering both practical application development and deep understanding of Rust's unique language features.
 
@@ -39,10 +39,9 @@ This repository implements **two distinct learning paths**, each with 50 project
 ```
 rust-100-projects/
 ├── README.md                          # This file
-├── Cargo.toml                         # Root workspace
 ├── LICENSE                            # MIT License
 │
-├── application-projects/               # Track 1: Practical Applications
+├── application-projects/               # Track 1: Practical Applications (Workspace 1)
 │   ├── Cargo.toml                     # Application workspace
 │   ├── README.md                      # Application track details
 │   ├── easy/                          # Projects 1-20: Basic applications
@@ -63,7 +62,7 @@ rust-100-projects/
 │       ├── project-50-quantum-sim/    # Quantum Simulator (Basic)
 │       └── ... (14 more advanced projects)
 │
-└── language-projects/                 # Track 2: Rust Language Features
+└── language-projects/                 # Track 2: Rust Language Features (Workspace 2)
     ├── Cargo.toml                     # Language workspace
     ├── README.md                      # Language track details
     ├── easy/                          # Projects 1-20: Core language concepts
@@ -110,40 +109,56 @@ rustup install nightly
 
 ### **Workspace Setup**
 ```bash
-# Build both workspaces (downloads dependencies)
+# Build Application workspace (downloads dependencies)
 cd application-projects && cargo build && cd ..
+
+# Build Language workspace (downloads dependencies)  
 cd language-projects && cargo build && cd ..
 
-# Verify setup
-cargo check --workspace
+# Verify setup (run from each workspace directory)
+cd application-projects && cargo check && cd ..
+cd language-projects && cargo check && cd ..
 ```
 
 ### **Running Projects**
 
 #### **Application Track**
 ```bash
-# Run Hello World (Project 1)
+# Navigate to Application workspace
 cd application-projects
+
+# Run Hello World (Project 1)
 cargo run --bin project-01-hello-world
 
 # Run Todo App with arguments (Project 23)  
 cargo run --bin project-23-todo-app -- add "Learn Rust"
 
-# Test all easy projects
-cargo test --manifest-path easy/project-01-hello-world/Cargo.toml
+# Test all Application projects
+cargo test --workspace
+
+# Return to root
+cd ..
 ```
 
 #### **Language Track**
 ```bash
+# Navigate to Language workspace
+cd language-projects
+
 # Run Personal Greeter (Project 1 - ownership basics)
-cd ../language-projects
 cargo run --bin project-01-personal-greeter
 
 # Run Shape Drawer (Project 11 - traits)
 cargo run --bin project-11-shape-drawer
 
+# Test all Language projects
+cargo test --workspace
+
 # Test ownership correctness (shows borrow checker in action)
 cargo test -- --nocapture
+
+# Return to root
+cd ..
 ```
 
 ### **Nightly Features (Language Track Projects 40-50)**
@@ -152,11 +167,12 @@ cargo test -- --nocapture
 cd language-projects
 rustup override set nightly
 
-# Run with nightly
+# Run with nightly (from language-projects directory)
 cargo +nightly run --bin project-47-trait-specialization
 
 # Return to stable for other projects
 rustup override unset
+cd ..
 ```
 
 ## 📈 Learning Progression
@@ -170,13 +186,13 @@ rustup override unset
 - **Week 1**: Projects 1-10 (CLI tools, basic algorithms)
 - **Week 2**: Projects 11-20 (Structs, file I/O, simple games)
 
-**Language Track**: Projects 1-20 (Easy)  
+**Language Track**: Projects 1-20 (Easy)
 - **Week 3**: Projects 1-10 (Ownership, structs, enums)
 - **Week 4**: Projects 11-20 (Traits, lifetimes, modules)
 
 **Daily Routine**:
-- 1-2 hours: Work on 1 application project
-- 1-2 hours: Work on 1 language project
+- 1-2 hours: Work on 1 application project (`cd application-projects`)
+- 1-2 hours: Work on 1 language project (`cd language-projects`)
 - 30 minutes: Review tests and documentation
 
 #### **Phase 2: Intermediate (Weeks 5-8)**
@@ -357,15 +373,18 @@ Work on both tracks simultaneously by difficulty:
 
 #### **RustRover (Recommended)**
 1. **Download**: [JetBrains RustRover](https://www.jetbrains.com/rust/)
-2. **Open Workspace**: `File → Open → rust-100-projects/` (root directory)
+2. **Open Workspaces Separately**:
+    - `File → Open → application-projects/` (for Application track)
+    - `File → Open → language-projects/` (for Language track)
+    - Or use "Attach to Existing Project" to work on both
 3. **Toolchain**: `File → Settings → Rust → Toolchain` → Use system Rust
-4. **Nightly Setup**: 
-   - `File → Settings → Rust → Toolchain` → Add nightly toolchain
-   - For language projects: `rustup override set nightly` in project directory
+4. **Nightly Setup**:
+    - `File → Settings → Rust → Toolchain` → Add nightly toolchain
+    - For language projects: `rustup override set nightly` in project directory
 
 **RustRover Features Used**:
-- **Workspace Navigation**: View both tracks in project tree
-- **Run Configurations**: Auto-generated for each binary
+- **Workspace Navigation**: View each track independently
+- **Run Configurations**: Auto-generated for each binary in active workspace
 - **Test Runner**: Comprehensive test execution with coverage
 - **Macro Expansion**: Debug macro definitions (language track)
 - **Unsafe Code Analysis**: Highlights and safety warnings
@@ -382,7 +401,6 @@ Work on both tracks simultaneously by difficulty:
 ```json
 {
     "rust-analyzer.check.command": "clippy",
-    "rust-analyzer.cargo.extraArgs": ["--workspace"],
     "rust-analyzer.server.extraEnv": {
         "RUSTUP_TOOLCHAIN": "stable"
     },
@@ -391,56 +409,61 @@ Work on both tracks simultaneously by difficulty:
 }
 ```
 
+**Workspace Setup**: Open each track as separate VS Code workspace or use multi-root workspace.
+
 ### **Terminal Commands**
 
 #### **Workspace Management**
 ```bash
-# Check all projects compile
-cargo check --workspace
+# === Application Track ===
+cd application-projects
+cargo check                    # Check all Application projects
+cargo test --workspace         # Test all Application projects
+cargo update --workspace       # Update Application dependencies
+cargo clean --workspace        # Clean Application build artifacts
+cd ..
 
-# Test all projects (can take 10-20 minutes)
-cargo test --workspace
-
-# Update all dependencies
-cargo update --workspace
-
-# Clean all build artifacts
-cargo clean --workspace
+# === Language Track ===
+cd language-projects
+cargo check                    # Check all Language projects
+cargo test --workspace         # Test all Language projects  
+cargo update --workspace       # Update Language dependencies
+cargo clean --workspace        # Clean Language build artifacts
+cd ..
 ```
 
 #### **Project-Specific Commands**
 ```bash
-# Run specific project
+# === From Application Workspace ===
+cd application-projects
 cargo run --bin project-01-hello-world
-
-# Run with specific features
-cargo run --bin project-24-http-server --features server
-
-# Debug with specific arguments
 cargo run --bin project-23-todo-app -- add "Task" --priority high
+cargo test --bin project-01-hello-world
+cd ..
 
-# Benchmark performance (add criterion to dev-dependencies)
-cargo bench --bin project-31-parallel-sieve
-
-# Profile with flamegraph (requires cargo-flamegraph)
-cargo flamegraph --bin project-32-ray-tracer
+# === From Language Workspace ===
+cd language-projects
+cargo run --bin project-01-personal-greeter
+cargo test --bin project-11-shape-drawer -- --nocapture
+cd ..
 ```
 
 #### **Nightly Features (Language Track)**
 ```bash
-# Enable nightly for specific directory
+# Enable nightly for specific directory (from root)
 cd language-projects/hard
 rustup override set nightly
 
-# Run with unstable features
+# Run with unstable features (from language-projects)
+cd ..
 cargo +nightly run --bin project-47-trait-specialization
 
 # Check feature compatibility
-cargo +nightly check --features unstable
+cargo +nightly check --bin project-47-trait-specialization
 
-# List available unstable features
-rustup component add rustfmt --toolchain nightly
-cargo +nightly fmt -- --check
+# Return to stable for other projects
+rustup override unset
+cd ..
 ```
 
 ### **Testing Strategy**
@@ -523,10 +546,10 @@ criterion_group!(benches, bench_main_algorithm);
 criterion_main!(benches);
 ```
 
-**Run Benchmarks**:
+**Run Benchmarks** (from appropriate workspace):
 ```bash
-cargo bench
-# Output: Performance measurements, comparisons
+cd application-projects  # or language-projects
+cargo bench --bin project-31-parallel-sieve
 ```
 
 ## 📖 Documentation Standards
@@ -558,14 +581,16 @@ project-01-hello-world/
 ├── src/
 │   └── main.rs        # Main application logic
 └── tests/
-    └── integration.rs # End-to-end tests
+└── integration.rs # End-to-end tests
 ```
 
 ## 🚀 Usage
 
 ### Running the Application
 ```bash
-cargo run
+# From application-projects workspace
+cd application-projects
+cargo run --bin project-01-hello-world
 # Output:
 # Hello, World! 👋
 # What's your name? Alice
@@ -575,14 +600,15 @@ cargo run
 ### Command Line Arguments
 ```bash
 # No arguments required for this project
-cargo run -- --help  # Shows usage information
+cargo run --bin project-01-hello-world -- --help  # Shows usage information
 ```
 
 ## 🧪 Testing
 
 ### Unit Tests
 ```bash
-cargo test
+# From application-projects workspace
+cargo test --bin project-01-hello-world
 # Running 4 tests
 # test tests::test_string_ownership ... ok
 # test tests::test_error_handling ... ok  
@@ -592,14 +618,14 @@ cargo test
 
 ### Integration Tests
 ```bash
-cargo test --test integration
+cargo test --test integration --bin project-01-hello-world
 # Tests complete application flow
 ```
 
 ### Coverage (requires cargo-llvm-cov)
 ```bash
 cargo install cargo-llvm-cov
-cargo llvm-cov --html
+cargo llvm-cov --html --bin project-01-hello-world
 # Opens coverage report in browser
 ```
 
@@ -645,7 +671,7 @@ fn main() -> Result<()> {
 
 ## 🔗 Related Projects
 - **Next**: [Project 02: Calculator](project-02-calculator) - Adds parsing and error handling
-- **Similar**: [Language Project 01: Personal Greeter](language-projects/easy/project-01-personal-greeter) - Focuses on ownership details
+- **Similar**: [Language Project 01: Personal Greeter](../language-projects/easy/project-01-personal-greeter) - Focuses on ownership details
 
 ## 🤝 Contributing
 1. Fork the repository
@@ -655,7 +681,7 @@ fn main() -> Result<()> {
 5. Open Pull Request
 
 ## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 - [Rust Programming Language](https://www.rust-lang.org/) - Amazing language and community
@@ -665,14 +691,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### **Documentation Generation**
 ```bash
-# Generate documentation for all projects
+# === Application Track Documentation ===
+cd application-projects
 cargo doc --workspace --no-deps --open
-
-# Document specific project
 cargo doc --bin project-01-hello-world --open
 
+# === Language Track Documentation ===
+cd ../language-projects
+cargo doc --workspace --no-deps --open
+cargo doc --bin project-01-personal-greeter --open
+
 # Include private items (for learning)
-RUSTDOCFLAGS="--document-private-items" cargo doc --workspace
+cd ..
+RUSTDOCFLAGS="--document-private-items" cargo doc --manifest-path application-projects/Cargo.toml
 ```
 
 ## 🚨 Troubleshooting
@@ -693,9 +724,11 @@ cargo run --bin project-01-hello-world
 ```
 error[E0432]: unresolved import `some_crate`
 ```
-**Solution**: Update workspace dependencies:
+**Solution**: Update workspace dependencies (from appropriate workspace):
 ```bash
+cd application-projects  # or language-projects
 cargo update --workspace
+cd ..
 # Or add missing dependency to project Cargo.toml
 ```
 
@@ -703,18 +736,19 @@ cargo update --workspace
 ```
 error[E0658]: use of unstable library feature
 ```
-**Solution**: Use nightly toolchain:
+**Solution**: Use nightly toolchain (from language-projects workspace):
 ```bash
 cd language-projects/hard/project-47-trait-specialization
 rustup override set nightly
-cargo +nightly check
+cd ../..
+cargo +nightly check --bin project-47-trait-specialization
 ```
 
 #### **Test Timeouts (Concurrency Projects)**
 ```
 test has been running for over 60 seconds
 ```
-**Solution**: Increase timeout or fix race conditions:
+**Solution**: Increase timeout or fix race conditions (from appropriate workspace):
 ```toml
 # In Cargo.toml
 [dev-dependencies]
@@ -730,15 +764,17 @@ async fn test_concurrent_operations() {
 ```
 
 #### **Memory Leaks (Advanced Projects)**
-**Use valgrind** (Linux/macOS):
+**Use valgrind** (Linux/macOS) from appropriate workspace:
 ```bash
-RUSTFLAGS="-g" cargo build --release
+cd application-projects  # or language-projects
+RUSTFLAGS="-g" cargo build --release --bin project-36-memory-allocator
 valgrind --leak-check=full --show-leak-kinds=all ./target/release/project-36-memory-allocator
 ```
 
 **Rust-specific**: Use `cargo-miri` for undefined behavior detection:
 ```bash
 cargo install cargo-miri
+cd language-projects
 cargo miri run --bin project-31-unsafe-pointer
 ```
 
@@ -770,8 +806,8 @@ cargo miri run --bin project-31-unsafe-pointer
 ### **Project Completion Checklist**
 For each project, verify:
 
-- [ ] **Code Compiles**: `cargo check` passes
-- [ ] **Tests Pass**: `cargo test` with 100% pass rate  
+- [ ] **Code Compiles**: `cargo check` passes (from appropriate workspace)
+- [ ] **Tests Pass**: `cargo test` with 100% pass rate
 - [ ] **Documentation**: README.md complete with examples
 - [ ] **Performance**: Benchmarks reasonable (where applicable)
 - [ ] **Error Handling**: All edge cases covered
@@ -820,7 +856,7 @@ I completed [Rust 100 Projects](https://github.com/yourusername/rust-100-project
 
 ## 🛠 Technologies
 ![Rust](https://img.shields.io/badge/Rust-1.75%2B-informational)
-![Cargo](https://img.shields.io/badge/Cargo-Workspace-orange)
+![Cargo](https://img.shields.io/badge/Cargo-Two%20Workspaces-orange)
 ![Tokio](https://img.shields.io/badge/Tokio-Async-blue)
 ![Rayon](https://img.shields.io/badge/Rayon-Parallel-green)
 
@@ -845,10 +881,10 @@ When applying for Rust positions, mention:
 1. **Fork** the repository
 2. **Create Issue** for bugs or feature requests
 3. **Submit Pull Request** with:
-   - Clear description of changes
-   - Updated tests
-   - Documentation updates
-   - Follow existing code style
+    - Clear description of changes
+    - Updated tests
+    - Documentation updates
+    - Follow existing code style
 
 ### **Code Style**
 - **Formatter**: `cargo fmt` (stable Rust format)
@@ -932,7 +968,7 @@ Completing these 100 projects represents a **comprehensive mastery of Rust progr
 - **Systems Expertise**: Experience with low-level programming and optimization
 - **Portfolio Ready**: 100 concrete projects to showcase your abilities
 
-**Start with Project 1 from each track today** - the journey of a thousand lines begins with `cargo new`! 🚀
+**Start with Project 1 from each track today** - navigate to `application-projects` and `language-projects` workspaces and begin with `cargo run`! 🚀
 
 ---
 
