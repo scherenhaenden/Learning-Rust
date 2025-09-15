@@ -10,7 +10,7 @@ fn main() {
     println!("Enter a first number: ");
     let mut first_number = String::new();
     std::io::stdin().read_line(&mut first_number).unwrap();
-    let first_number: i32 = first_number.trim().parse().unwrap();
+    let first_number: f64 = first_number.trim().parse().unwrap();
 
     println!("What kind of operation do you want to perform? (+, -, *, /): ");
     let mut operation = String::new();
@@ -20,7 +20,7 @@ fn main() {
     println!("Enter a second number: ");
     let mut second_number = String::new();
     std::io::stdin().read_line(&mut second_number).unwrap();
-    let second_number: i32 = second_number.trim().parse().unwrap();
+    let second_number: f64 = second_number.trim().parse().unwrap();
 
     // validation and floating point division
     let result = match operation {
@@ -28,7 +28,7 @@ fn main() {
         "-" => first_number - second_number,
         "*" => first_number * second_number,
         "/" => {
-            if second_number == 0 {
+            if second_number == 0.0  {
                 println!("Error: Division by zero is not allowed.");
                 return;
             }
