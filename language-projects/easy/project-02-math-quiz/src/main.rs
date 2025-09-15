@@ -12,7 +12,7 @@ fn main() {
     std::io::stdin().read_line(&mut first_number).unwrap();
     let first_number: i32 = first_number.trim().parse().unwrap();
 
-    println!("what kind of operation do you want to perform? (+, -, *, /): ");
+    println!("What kind of operation do you want to perform? (+, -, *, /): ");
     let mut operation = String::new();
     std::io::stdin().read_line(&mut operation).unwrap();
     let operation = operation.trim();
