@@ -1,0 +1,6 @@
+[package]
+name = "project-01-personal-greeter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
