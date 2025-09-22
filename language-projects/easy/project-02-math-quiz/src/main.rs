@@ -1,5 +1,4 @@
-
-
+use std::io::stdin;
 
 
 
@@ -9,20 +8,20 @@ fn main() {
     // inputs
     println!("Enter a first number: ");
     let mut first_number = String::new();
-    std::io::stdin().read_line(&mut first_number).unwrap();
+    stdin().read_line(&mut first_number).unwrap();
     let first_number: f64 = first_number.trim().parse().unwrap();
 
     println!("What kind of operation do you want to perform? (+, -, *, /): ");
     let mut operation = String::new();
-    std::io::stdin().read_line(&mut operation).unwrap();
+    stdin().read_line(&mut operation).expect("Failed to read operation");
     let operation = operation.trim();
 
     println!("Enter a second number: ");
     let mut second_number = String::new();
-    std::io::stdin().read_line(&mut second_number).unwrap();
+    stdin().read_line(&mut second_number).unwrap();
     let second_number: f64 = second_number.trim().parse().unwrap();
 
-    // validation and floating point division
+    // Perform calculation based on operation (floating-point)
     let result = match operation {
         "+" => first_number + second_number,
         "-" => first_number - second_number,
