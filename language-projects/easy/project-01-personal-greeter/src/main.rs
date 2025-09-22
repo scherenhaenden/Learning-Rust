@@ -10,7 +10,7 @@ fn main() {
 
     let name = name.trim();
 
-    println!("whats your age?");
+    println!("what's your age?");
 
     let mut age = String::new();
     io::stdin().read_line(&mut age).expect("Failed to read line");
