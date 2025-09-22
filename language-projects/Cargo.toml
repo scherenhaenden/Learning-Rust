@@ -1,0 +1,9 @@
+# Intermediate directory for language projects - no workspace definition here.
+
+[workspace]
+members = [
+    "easy/project-*",
+]
+resolver = "2"
+
+[workspace.dependencies]
